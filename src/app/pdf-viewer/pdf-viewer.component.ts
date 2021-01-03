@@ -25,6 +25,7 @@ import {
 } from 'pdfjs-dist';
 
 import { createEventBus } from '../utils/event-bus-utils';
+import { PdfPrinterService } from '../pdf-printer/pdf-printer.service';
 
 let PDFJS: any;
 let PDFJSViewer: any;
@@ -219,7 +220,7 @@ export class PdfViewerComponent
     return null;
   }
 
-  constructor(private element: ElementRef) {
+  constructor(private element: ElementRef, private printService: PdfPrinterService) {
     if (isSSR()) {
       return;
     }
@@ -239,6 +240,7 @@ export class PdfViewerComponent
     }
 
     (PDFJS as any).GlobalWorkerOptions.workerSrc = pdfWorkerSrc;
+    this.printService.getCurrentViewer = () => this.getCurrentViewer();
   }
 
   ngAfterViewChecked(): void {

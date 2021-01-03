@@ -9,6 +9,7 @@ import {
 } from './pdf-viewer/pdf-viewer.module';
 
 import { PdfViewerComponent } from './pdf-viewer/pdf-viewer.component';
+import { PdfPrinterService } from './pdf-printer/pdf-printer.service';
 
 @Component({
   moduleId: module.id,
@@ -48,6 +49,12 @@ export class AppComponent {
 
   @ViewChild(PdfViewerComponent)
   private pdfComponent: PdfViewerComponent;
+
+  constructor(private printer: PdfPrinterService) {}
+
+  public print(): void {
+    this.printer.print();
+  }
 
   // Load pdf
   loadPdf() {
